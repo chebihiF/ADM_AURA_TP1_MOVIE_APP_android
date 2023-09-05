@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.m2i.tp1_movie_app.navigation.MovieScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,9 +121,7 @@ fun MainContent(
         LazyColumn {
             items(items = moviesList){
                 MovieRow(movie = it) { movie ->
-                    //Log.d("MYTAG","MainContent= $movie")
-                    Toast.makeText(context,
-                        "MainContent= $movie", Toast.LENGTH_LONG).show()
+                    navController.navigate(route = MovieScreens.DetailsScreen.name)
                 }
             }
         }

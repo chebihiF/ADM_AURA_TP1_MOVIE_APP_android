@@ -15,7 +15,6 @@ fun MovieNavigation(){
         composable(MovieScreens.HomeScreen.name){ // "HomeScreen"
             HomeScreen(navController = navController)
         }
-
         composable(MovieScreens.DetailsScreen.name){
             DetailsScreen(navController = navController)
         }
