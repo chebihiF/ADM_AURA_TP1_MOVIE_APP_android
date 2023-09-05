@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApp {
-                MainContent(PaddingValues(all = 10.dp))
+                MainContent()
             }
         }
     }
@@ -34,24 +34,15 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyApp(content: @Composable (paddingValues: PaddingValues) -> Unit){ // Unit = void
+fun MyApp(content: @Composable () -> Unit){ // Unit = void
     TP1_MOVIE_APPTheme {
-        Scaffold(topBar = {
-            TopAppBar(
-                title = { Text(text = "Movies") },
-                colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color.Cyan),
-
-            )
-        }, content = {innerPadding -> content(innerPadding)})
+        content()
     }
 }
 
 @Composable
-fun MainContent(innerPadding: PaddingValues){
-    Surface(modifier=Modifier.padding(innerPadding), color = MaterialTheme.colorScheme.background) {
-        Text(text = "Hello")
-    }
-
+fun MainContent(){
+    Text(text = "Hello")
 }
 
 
@@ -59,6 +50,6 @@ fun MainContent(innerPadding: PaddingValues){
 @Composable
 fun GreetingPreview() {
     MyApp {
-        MainContent(PaddingValues(all = 100.dp))
+        MainContent()
     }
 }
