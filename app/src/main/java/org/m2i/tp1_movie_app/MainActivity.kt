@@ -73,8 +73,6 @@ fun MyApp(content: @Composable () -> Unit){ // Unit = void
 }
 
 
-
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
