@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyApp(content: @Composable (paddingValues: PaddingValues) -> Unit){ // Unit = void
+fun MyApp(content: @Composable () -> Unit){ // Unit = void
     TP1_MOVIE_APPTheme {
         Scaffold(
             topBar =
@@ -90,20 +91,25 @@ fun MyApp(content: @Composable (paddingValues: PaddingValues) -> Unit){ // Unit 
                     )
 
                 }
+            },
+            floatingActionButton =
+            {
+                FloatingActionButton(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+                }
             }
         )
-        { paddingValues ->  content(paddingValues)
-
+        { paddingValues ->
+            Surface(modifier = Modifier.padding(paddingValues)){
+                content()
+            }
         }
     }
 }
 
 @Composable
-fun MainContent(paddingValues: PaddingValues = PaddingValues(0.dp)){
-    Surface(modifier = Modifier.padding(paddingValues)) {
-        Text(text = "Hello")
-    }
-
+fun MainContent(){
+    Text(text = "Hello")
 }
 
 
