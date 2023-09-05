@@ -1,8 +1,11 @@
 package org.m2i.tp1_movie_app
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -44,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.m2i.tp1_movie_app.ui.theme.TP1_MOVIE_APPTheme
@@ -132,21 +136,29 @@ fun MainContent(moviesList: List<String> = listOf(
     "Happiness ...",
     "Life"
 )){
+    val context = LocalContext.current
     Column (modifier = Modifier.padding(12.dp)) {
         LazyColumn {
             items(items = moviesList){
-                MovieRow(movie = it)
+                MovieRow(movie = it) { movie ->
+                    //Log.d("MYTAG","MainContent= $movie")
+                    Toast.makeText(context,
+                        "MainContent= $movie", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
 }
 
 @Composable
-fun MovieRow(movie: String) {
+fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
     Card(modifier = Modifier
         .padding(4.dp)
         .fillMaxWidth()
-        .height(130.dp),
+        .height(130.dp)
+        .clickable {
+           onItemClick(movie)
+        },
         shape = RoundedCornerShape(corner = CornerSize(12.dp)),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
