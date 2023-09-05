@@ -3,9 +3,12 @@ package org.m2i.tp1_movie_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
@@ -108,8 +111,25 @@ fun MyApp(content: @Composable () -> Unit){ // Unit = void
 }
 
 @Composable
-fun MainContent(){
-    Text(text = "Hello")
+fun MainContent(moviesList: List<String> = listOf(
+    "Avatar",
+    "300",
+    "Harry Potter",
+    "Happiness ...",
+    "Life"
+)){
+    Column (modifier = Modifier.padding(12.dp)) {
+        LazyColumn {
+            items(items = moviesList){
+                Text(text = it)
+            }
+        }
+    }
+}
+
+@Composable
+fun MovieRow() {
+
 }
 
 
