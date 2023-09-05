@@ -6,8 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,15 +45,65 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyApp(content: @Composable () -> Unit){ // Unit = void
+fun MyApp(content: @Composable (paddingValues: PaddingValues) -> Unit){ // Unit = void
     TP1_MOVIE_APPTheme {
-        content()
+        Scaffold(
+            topBar =
+            {
+                CenterAlignedTopAppBar(
+                    title = { Text(text = "Movies") },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = Color.Magenta,
+                        titleContentColor = Color.White,
+                        navigationIconContentColor = Color.White,
+                        actionIconContentColor = Color.White
+                        ),
+                    navigationIcon = { IconButton(onClick = { /*TODO*/ }) {
+                        Icon(imageVector = Icons.Filled.Menu, contentDescription = "Menu") } },
+                    actions = {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(imageVector = Icons.Default.Add, contentDescription = "add") } }
+                    )
+            },
+            bottomBar =
+            {
+                NavigationBar {
+                    NavigationBarItem(
+                        selected = true,
+                        onClick = { /*TODO*/ },
+                        icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home") },
+                        label = { Text(text = "Home")}
+                    )
+
+                    NavigationBarItem(
+                        selected = true,
+                        onClick = { /*TODO*/ },
+                        icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
+                        label = { Text(text = "Profile")}
+                    )
+
+                    NavigationBarItem(
+                        selected = true,
+                        onClick = { /*TODO*/ },
+                        icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorite") },
+                        label = { Text(text = "Favorite")}
+                    )
+
+                }
+            }
+        )
+        { paddingValues ->  content(paddingValues)
+
+        }
     }
 }
 
 @Composable
-fun MainContent(){
-    Text(text = "Hello")
+fun MainContent(paddingValues: PaddingValues = PaddingValues(0.dp)){
+    Surface(modifier = Modifier.padding(paddingValues)) {
+        Text(text = "Hello")
+    }
+
 }
 
 
