@@ -4,13 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.m2i.tp1_movie_app.screens.home.HomeScreen
 
 @Composable
 fun MovieNavigation(){
     val navController = rememberNavController()
+    // Pile (Retour) de composables qui composent les écrans de votre application ainsi que l'état de chaque ecran
     NavHost(navController = navController, startDestination = MovieScreens.HomeScreen.name){
         composable(MovieScreens.HomeScreen.name){ // "HomeScreen"
-
+            HomeScreen(navController = navController)
         }
     }
 }

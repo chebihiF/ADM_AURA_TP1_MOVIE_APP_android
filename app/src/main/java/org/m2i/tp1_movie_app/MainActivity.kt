@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.m2i.tp1_movie_app.navigation.MovieNavigation
 import org.m2i.tp1_movie_app.ui.theme.TP1_MOVIE_APPTheme
 
 class MainActivity : ComponentActivity() {
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApp {
-                MainContent()
+                MovieNavigation()
             }
         }
     }
@@ -67,124 +68,17 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(content: @Composable () -> Unit){ // Unit = void
     TP1_MOVIE_APPTheme {
-        Scaffold(
-            topBar =
-            {
-                CenterAlignedTopAppBar(
-                    title = { Text(text = "Movies") },
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.Magenta,
-                        titleContentColor = Color.White,
-                        navigationIconContentColor = Color.White,
-                        actionIconContentColor = Color.White
-                        ),
-                    navigationIcon = { IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Filled.Menu, contentDescription = "Menu") } },
-                    actions = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = Icons.Default.Add, contentDescription = "add") } }
-                    )
-            },
-            bottomBar =
-            {
-                NavigationBar {
-                    NavigationBarItem(
-                        selected = true,
-                        onClick = { /*TODO*/ },
-                        icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home") },
-                        label = { Text(text = "Home")}
-                    )
-
-                    NavigationBarItem(
-                        selected = true,
-                        onClick = { /*TODO*/ },
-                        icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
-                        label = { Text(text = "Profile")}
-                    )
-
-                    NavigationBarItem(
-                        selected = true,
-                        onClick = { /*TODO*/ },
-                        icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorite") },
-                        label = { Text(text = "Favorite")}
-                    )
-
-                }
-            },
-            floatingActionButton =
-            {
-                FloatingActionButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
-                }
-            }
-        )
-        { paddingValues ->
-            Surface(modifier = Modifier.padding(paddingValues)){
-                content()
-            }
-        }
+        content()
     }
 }
 
-@Composable
-fun MainContent(moviesList: List<String> = listOf(
-    "Avatar",
-    "300",
-    "Harry Potter",
-    "Cross the line ..",
-    "Be happy ..",
-    "Happiness ...",
-    "Life"
-)){
-    val context = LocalContext.current
-    Column (modifier = Modifier.padding(12.dp)) {
-        LazyColumn {
-            items(items = moviesList){
-                MovieRow(movie = it) { movie ->
-                    //Log.d("MYTAG","MainContent= $movie")
-                    Toast.makeText(context,
-                        "MainContent= $movie", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-}
 
-@Composable
-fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
-    Card(modifier = Modifier
-        .padding(4.dp)
-        .fillMaxWidth()
-        .height(130.dp)
-        .clickable {
-           onItemClick(movie)
-        },
-        shape = RoundedCornerShape(corner = CornerSize(12.dp)),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center) {
-            Surface (modifier = Modifier
-                .padding(12.dp)
-                .size(100.dp),
-                shape = RectangleShape,
-                shadowElevation = 4.dp,
-                ) {
-                Icon(imageVector = Icons.Default.AccountBox,contentDescription = "Movie Image")
-            }
-
-            Text(text = movie)
-        }
-    }
-}
 
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyApp {
-        MainContent()
+        MovieNavigation()
     }
 }
