@@ -6,11 +6,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,20 +30,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import org.m2i.tp1_movie_app.MyApp
+import org.m2i.tp1_movie_app.model.Movie
+import org.m2i.tp1_movie_app.model.getMovies
 import org.m2i.tp1_movie_app.navigation.MovieNavigation
 import org.m2i.tp1_movie_app.navigation.MovieScreens
+import org.m2i.tp1_movie_app.widgets.MovieRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(navController: NavController, movie: String?){
+fun DetailsScreen(navController: NavController, movieId: String?){
+
+    val movie: Movie = getMovies().filter { movie: Movie -> movie.id == movieId }[0]
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = movie.toString()) },
+                title = { Text(text = movie.title) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = Color.White,
@@ -56,11 +70,25 @@ fun DetailsScreen(navController: NavController, movie: String?){
             .padding(paddingValues)) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
+                MovieRow(movie=movie)
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyRow{
+                    items(movie.images){image ->
+                        Card (modifier = Modifier
+                            .padding(12.dp)
+                            .size(240.dp),
+                            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp)) {
 
-                Text(text = movie.toString(), style = MaterialTheme.typography.displayMedium)
-
+                            AsyncImage(
+                                model = image,
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                            )
+                        }
+                    }
+                }
             }
         }
     }
