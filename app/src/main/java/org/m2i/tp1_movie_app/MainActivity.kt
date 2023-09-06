@@ -51,7 +51,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.m2i.tp1_movie_app.navigation.MovieNavigation
-import org.m2i.tp1_movie_app.screens.home.MovieRow
+
 import org.m2i.tp1_movie_app.ui.theme.TP1_MOVIE_APPTheme
 
 class MainActivity : ComponentActivity() {
