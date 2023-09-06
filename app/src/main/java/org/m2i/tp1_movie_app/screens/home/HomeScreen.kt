@@ -27,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -52,19 +53,19 @@ fun HomeScreen(navController: NavController){
             CenterAlignedTopAppBar(
                 title = { Text(text = "Movies") },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.Magenta,
+                    containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White,
                     actionIconContentColor = Color.White
                 ),
                 navigationIcon = { IconButton(onClick = { /*TODO*/ }) {
                     Icon(imageVector = Icons.Filled.Menu, contentDescription = "Menu") } },
-                actions = {
+                /*actions = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add") } }
+                        Icon(imageVector = Icons.Default.Add, contentDescription = "add") } }*/
             )
         },
-        bottomBar =
+        /*bottomBar =
         {
             NavigationBar {
                 NavigationBarItem(
@@ -89,7 +90,7 @@ fun HomeScreen(navController: NavController){
                 )
 
             }
-        },
+        },*/
         floatingActionButton =
         {
             FloatingActionButton(onClick = { /*TODO*/ }) {
